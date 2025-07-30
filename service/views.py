@@ -55,25 +55,38 @@ class ClientDeleteView(DeleteView):
 class MessageListView(ListView):
     model = Message
     template_name = "message_list.html"
+    context_object_name = "messages"
+
+
+class MessageDetailView(DetailView):
+    model = Message
+    template_name = "message_detail.html"
 
 
 class MessageCreateView(CreateView):
     model = Message
-    field = ("topic", "text")
+    fields = ("topic", "text")
     template_name = "message_form.html"
-    success_url = reverse_lazy("message_list.html")
+
+    def get_success_url(self):
+        return reverse_lazy('service:messages_list')
 
 
 class MessageUpdateView(UpdateView):
     model = Message
+    fields = ("topic", "text")
     template_name = "message_form.html"
-    success_url = reverse_lazy("message_list.html")
+
+    def get_success_url(self):
+        return reverse_lazy('service:messages_list')
 
 
 class MessageDeleteView(DeleteView):
     model = Message
-    template_name = "message_confirm_delete"
-    success_url = reverse_lazy("message_list.html")
+    template_name = "message_confirm_delete.html"
+
+    def get_success_url(self):
+        return reverse_lazy('service:messages_list')
 
 
 class MailingListView(ListView):
@@ -96,5 +109,5 @@ class MailingUpdateView(UpdateView):
 
 class MailingDeleteView(DeleteView):
     model = Mailing
-    template_name = "mailing_confirm_delete"
+    template_name = "mailing_confirm_delete.html"
     success_url = reverse_lazy("mailing_list.html")

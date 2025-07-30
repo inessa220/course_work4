@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои сообщения{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Мои сообщения</h1>
+
+    {% if messages %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Тема письма</th>
+                <th>Сообщение</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for message in messages %}
+            <tr>
+                <td>{{ message.id}}</td>
+                <td>{{ message.topic }}</td>
+                <td>{{ message.text }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>Нет сообщений для отображения.</p>
+    {% endif %}
+<a href="{% url 'service:messages_create' %}" class="btn btn-lg btn-outline-primary mx-2 px-5 m-3 float-bottom">Добавить сообщение</a>
+<a href="{% url 'service:home' %}" class="btn btn-lg btn-outline-primary mx-2 px-5 m-3 float-bottom">Назад</a>
+{% endblock %}
