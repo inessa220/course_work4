@@ -5,7 +5,8 @@ from django.views.generic import (
     ListView,
     CreateView,
     UpdateView,
-    DeleteView, DetailView
+    DeleteView,
+    DetailView,
 )
 
 from service.models import Client, Message, Mailing
@@ -21,6 +22,7 @@ class ClientListView(ListView):
     template_name = "client_list.html"
     context_object_name = "clients"
 
+
 class ClientDetailView(DetailView):
     model = Client
     template_name = "client_detail.html"
@@ -32,7 +34,7 @@ class ClientCreateView(CreateView):
     template_name = "client_form.html"
 
     def get_success_url(self):
-        return reverse_lazy('service:client_list')
+        return reverse_lazy("service:client_list")
 
 
 class ClientUpdateView(UpdateView):
@@ -41,7 +43,7 @@ class ClientUpdateView(UpdateView):
     template_name = "client_form.html"
 
     def get_success_url(self):
-        return reverse_lazy('service:client_list')
+        return reverse_lazy("service:client_list")
 
 
 class ClientDeleteView(DeleteView):
@@ -49,7 +51,7 @@ class ClientDeleteView(DeleteView):
     template_name = "client_confirm_delete.html"
 
     def get_success_url(self):
-        return reverse_lazy('service:client_list')
+        return reverse_lazy("service:client_list")
 
 
 class MessageListView(ListView):
@@ -69,7 +71,7 @@ class MessageCreateView(CreateView):
     template_name = "message_form.html"
 
     def get_success_url(self):
-        return reverse_lazy('service:messages_list')
+        return reverse_lazy("service:messages_list")
 
 
 class MessageUpdateView(UpdateView):
@@ -78,7 +80,7 @@ class MessageUpdateView(UpdateView):
     template_name = "message_form.html"
 
     def get_success_url(self):
-        return reverse_lazy('service:messages_list')
+        return reverse_lazy("service:messages_list")
 
 
 class MessageDeleteView(DeleteView):
@@ -86,28 +88,41 @@ class MessageDeleteView(DeleteView):
     template_name = "message_confirm_delete.html"
 
     def get_success_url(self):
-        return reverse_lazy('service:messages_list')
+        return reverse_lazy("service:messages_list")
 
 
 class MailingListView(ListView):
     model = Mailing
     template_name = "mailing_list.html"
+    context_object_name = "mailings"
+
+class MailingDetailView(DetailView):
+    model = Mailing
+    template_name = "mailing_detail.html"
 
 
 class MailingCreateView(CreateView):
     model = Mailing
-    field = ("topic", "text")
+    fields = ("start_send", "stop_send", "status", "message", "clients")
     template_name = "mailing_form.html"
-    success_url = reverse_lazy("mailing_list.html")
+
+    def get_success_url(self):
+        return reverse_lazy("service:mailing_list")
 
 
 class MailingUpdateView(UpdateView):
     model = Mailing
+    fields = ("start_send", "stop_send", "status", "message", "clients")
     template_name = "mailing_form.html"
-    success_url = reverse_lazy("mailing_list.html")
+
+    def get_success_url(self):
+        return reverse_lazy("service:mailing_list")
 
 
 class MailingDeleteView(DeleteView):
     model = Mailing
     template_name = "mailing_confirm_delete.html"
-    success_url = reverse_lazy("mailing_list.html")
+
+    def get_success_url(self):
+        return reverse_lazy("service:mailing_list")
+

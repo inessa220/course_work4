@@ -9,11 +9,18 @@ from service.views import (
     MessageListView,
     MessageCreateView,
     MessageUpdateView,
-    MessageDeleteView, MailingListView, MailingCreateView, MailingUpdateView, MailingDeleteView, ClientDetailView,
-    MessageDetailView,
+    MessageDeleteView,
+    MailingListView,
+    MailingCreateView,
+    MailingUpdateView,
+    MailingDeleteView,
+    ClientDetailView,
+    MessageDetailView, MailingDetailView,
 )
 
 app_name = ServiceConfig.name
+
+
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
@@ -26,12 +33,21 @@ urlpatterns = [
     # message
     path("messages/", MessageListView.as_view(), name="messages_list"),
     path("messages/create/", MessageCreateView.as_view(), name="messages_create"),
-    path("messages/<int:pk>/update/", MessageUpdateView.as_view(), name="messages_update"),
-    path("messages/<int:pk>/delete/", MessageDeleteView.as_view(), name="messages_delete"),
+    path(
+        "messages/<int:pk>/update/", MessageUpdateView.as_view(), name="messages_update"
+    ),
+    path(
+        "messages/<int:pk>/delete/", MessageDeleteView.as_view(), name="messages_delete"
+    ),
     path("messages/<int:pk>/", MessageDetailView.as_view(), name="messages_detail"),
     # mailing
     path("mailing/", MailingListView.as_view(), name="mailing_list"),
     path("mailing/create/", MailingCreateView.as_view(), name="mailing_create"),
-    path("mailing/<int:pk>/update/", MailingUpdateView.as_view(), name="mailing_update"),
-    path("mailing/<int:pk>/delete/", MailingDeleteView.as_view(), name="mailing_delete"),
+    path(
+        "mailing/<int:pk>/update/", MailingUpdateView.as_view(), name="mailing_update"
+    ),
+    path(
+        "mailing/<int:pk>/delete/", MailingDeleteView.as_view(), name="mailing_delete"
+    ),
+    path("mailing/<int:pk>/", MailingDetailView.as_view(), name="mailing_detail"),
 ]

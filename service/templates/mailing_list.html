@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Мои рассылки{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Мои рассылки</h1>
+
+    {% if mailings %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Дата и время первой отправки</th>
+                <th>Дата и время окончания отправки</th>
+                <th>Статус</th>
+                <th>Сообщение</th>
+                <th>Получатели</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mailing in mailings %}
+            <tr>
+                <td>{{ mailing.id}}</td>
+                <td>{{ mailing.start_send}}</td>
+                <td>{{ mailing.stop_send }}</td>
+                <td>{{ mailing.status }}</td>
+                <td>{{ mailing.message }}</td>
+                <td>{{ mailing.clients }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>Нет рассылок для отображения.</p>
+    {% endif %}
+<a href="{% url 'service:mailing_create' %}" class="btn btn-lg btn-outline-primary mx-2 px-5 m-3 float-bottom">Добавить рассылку</a>
+<a href="{% url 'service:home' %}" class="btn btn-lg btn-outline-primary mx-2 px-5 m-3 float-bottom">Назад</a>
+{% endblock %}
