@@ -26,6 +26,7 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="{% url 'service:home' %}">Главная</a>
                     </li>
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'service:mailing_list' %}">Рассылки</a>
                     </li>
@@ -38,15 +39,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Попытки</a>
                     </li>
+                    {% else %}
+                    {% endif %}
                 </ul>
                 <hr class="my-3"/>
                 <ul class="nav nav-pills flex-column">
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Пользователь</a>
+                        <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
                     </li>
+                    {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Выйти</a>
+                        <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

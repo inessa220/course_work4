@@ -15,11 +15,11 @@ from service.views import (
     MailingUpdateView,
     MailingDeleteView,
     ClientDetailView,
-    MessageDetailView, MailingDetailView,
+    MessageDetailView,
+    MailingDetailView,
 )
 
 app_name = ServiceConfig.name
-
 
 
 urlpatterns = [

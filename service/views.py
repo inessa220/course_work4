@@ -96,6 +96,7 @@ class MailingListView(ListView):
     template_name = "mailing_list.html"
     context_object_name = "mailings"
 
+
 class MailingDetailView(DetailView):
     model = Mailing
     template_name = "mailing_detail.html"
@@ -125,4 +126,3 @@ class MailingDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy("service:mailing_list")
-
