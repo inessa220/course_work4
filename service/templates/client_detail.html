@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">ID: {{ object.id }}</p>
+                            <p class="card-text">Email: {{ object.email }}</p>
+                            <p class="card-text">Ф.И.О.: {{ object.name }}</p>
+                            <p class="card-text">Комментарий: {{ object.comment }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a class="btn btn-primary" href="{% url 'service:client_update' client.pk %}" role="button">Редактировать</a>
+                                    <a class="btn btn-danger" href="{% url 'service:client_delete' client.pk %}" role="button">Удалить</a>
+                                    <a class="btn btn-primary" href="{% url 'service:home' %}" role="button">Назад</a>
+                                </div>
+                                <small class="text-body-secondary"></small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сервис с рассылкой сообщений</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .sidebar { background-color: #212529; color: white; padding-top: 20px; height: 100vh}
+        .sidebar a { color: white; padding: 10px 20px; display: block; text-decoration: none; }
+        .sidebar a:hover { background-color: #495057; }
+        .sidebar a.active { background-color: #0d6efd; }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Боковая панель -->
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 bg-dark sidebar collapse d-md-block">
+            <div class="position-sticky pt-3">
+                <h5 class="mb-3 text-white"><span class="fas fa-bars me-2"></span> Меню</h5>
+                <hr/>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'service:home' %}">Главная</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'service:mailing_list' %}">Рассылки</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'service:messages_list' %}">Сообщения</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'service:client_list' %}">Клиенты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Попытки</a>
+                    </li>
+                    {% else %}
+                    {% endif %}
+                </ul>
+                <hr class="my-3"/>
+                <ul class="nav nav-pills flex-column">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:logout' %}">Выход</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:login' %}">Вход</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'users:register' %}">Регистрация</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Основной контент -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">Сервис с рассылкой сообщений</h1>
+            </div>
+            <!-- Блок с контентом -->
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
