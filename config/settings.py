@@ -1,15 +1,23 @@
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+from django.conf.global_settings import (EMAIL_HOST, EMAIL_HOST_PASSWORD,
+                                         EMAIL_HOST_USER, EMAIL_PORT,
+                                         EMAIL_USE_SSL, EMAIL_USE_TLS,
+                                         LOGIN_REDIRECT_URL,
+                                         LOGOUT_REDIRECT_URL, STATICFILES_DIRS)
 
+
+load_dotenv(override=True)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = "django-insecure-s4_-)_89rahr%on4jm!8zqz_58vcxpq3mz*7cgnui5nd650p*&"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = True
+DEBUG = True if os.getenv("DEBUG") == "True" else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 INSTALLED_APPS = [
@@ -56,11 +64,11 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "service",
-        "USER": "postgres",
-        "PASSWORD": "453662",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "NAME": os.getenv("NAME"),
+        "USER": os.getenv("USER"),
+        "PASSWORD": os.getenv("PASSWORD"),
+        "HOST": os.getenv("HOST"),
+        "PORT": os.getenv("PORT"),
     }
 }
 
@@ -105,3 +113,19 @@ AUTH_USER_MODEL = "users.User"
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+    }
+}
+
+EMAIL_HOST = "smtp.yandex.ru"
+EMAIL_PORT = (465)  # Вы можете использовать любой из предложенных портов (25, 2525, 465 или 587)
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")  # Ваш логин
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")  # Ваш пароль
+SERVER_EMAIL = os.getenv("EMAIL_HOST_USER")
+DEFAULT_FROM_EMAIL = os.getenv("EMAIL_HOST_USER")
